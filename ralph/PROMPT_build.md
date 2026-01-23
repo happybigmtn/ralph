@@ -1,39 +1,20 @@
-## Phase 3: Building (Ralph)
+0a. Study `specs/*` with parallel subagents to learn the application specifications.
+0b. Study @IMPLEMENTATION_PLAN.md.
+0c. For reference, the application source code is in `src/*`.
 
-**Goal**: Implement the next plan item with tests as backpressure.
+1. Your task is to implement functionality per the specifications using parallel subagents. Follow @IMPLEMENTATION_PLAN.md and choose the most important item to address. Before making changes, search the codebase (don't assume not implemented) using parallel subagents. Use only 1 subagent for build/tests.
+2. After implementing functionality or resolving problems, run the tests for that unit of code that was improved. If functionality is missing then it's your job to add it as per the application specifications. Ultrathink.
+3. When you discover issues, immediately update @IMPLEMENTATION_PLAN.md with your findings using a subagent. When resolved, update and remove the item.
+4. When the tests pass, update @IMPLEMENTATION_PLAN.md, then `git add -A` then `git commit` with a message describing the changes. After the commit, `git push`.
 
-### Scope Lock (Non-Negotiable)
-- Implement code/tests **only** for the next unchecked task in `IMPLEMENTATION_PLAN.md`.
-- Do **not** implement extra features “since you’re here”.
-- Do **not** change specs to match code unless explicitly instructed.
-
-### Hard Rules (Prevent Sloppy Builds)
-- **Single-task focus**: pick exactly ONE unchecked task; do not progress multiple tasks per iteration.
-- **Spec-grounded**: only implement behaviors explicitly required by the task’s cited ACs.
-- **No phantom criteria**: don’t introduce new ACs/PQ tests unless present in specs.
-- **No drive-by refactors**: avoid unrelated formatting/churn.
-
-### Test Output Rules (Token Conservation)
-- **Only show FAILING test output** — passing tests waste tokens
-- For passing tests, summarize: "✓ N tests passed"
-- If test output exceeds 50 lines, show only failures and error messages
-- Never dump full test logs into context
-
-### Build Process (Must Follow)
-1. Identify the next unchecked task in `IMPLEMENTATION_PLAN.md` and quote:
-   - task text
-   - cited spec paths + AC IDs
-2. Search the codebase before writing new primitives.
-3. Implement the minimal code to satisfy the cited ACs.
-4. Implement the exact tests/backpressure specified by the plan entry.
-5. Run the smallest relevant validation command(s) first.
-6. Update `IMPLEMENTATION_PLAN.md` only if you learned something that changes required backpressure.
-
-### Output Requirement
-At the end of the iteration, print:
-- Files changed
-- Tests/commands run and results
-- Which single plan checkbox is now complete
-
-### Commit Policy
-- Do **not** commit/push unless the user explicitly requests it.
+99999. Important: When authoring documentation, capture the why — tests and implementation importance.
+999999. Important: Single sources of truth, no migrations/adapters. If tests unrelated to your work fail, resolve them as part of the increment.
+9999999. As soon as there are no build or test errors create a git tag. If there are no git tags start at 0.0.0 and increment patch by 1 for example 0.0.1 if 0.0.0 does not exist.
+99999999. You may add extra logging if required to debug issues.
+999999999. Keep @IMPLEMENTATION_PLAN.md current with learnings using a subagent — future work depends on this to avoid duplicating efforts. Update especially after finishing your turn.
+9999999999. When you learn something new about how to run the application, update @AGENTS.md using a subagent but keep it brief. For example if you run commands multiple times before learning the correct command then that file should be updated.
+99999999999. For any bugs you notice, resolve them or document them in @IMPLEMENTATION_PLAN.md using a subagent even if it is unrelated to the current piece of work.
+999999999999. Implement functionality completely. Placeholders and stubs waste efforts and time redoing the same work.
+9999999999999. When @IMPLEMENTATION_PLAN.md becomes large periodically clean out the items that are completed from the file using a subagent.
+99999999999999. If you find inconsistencies in the specs/* then use an Opus 4.5 subagent with 'ultrathink' requested to update the specs.
+999999999999999. IMPORTANT: Keep @AGENTS.md operational only — status updates and progress notes belong in `IMPLEMENTATION_PLAN.md`. A bloated AGENTS.md pollutes every future loop's context.

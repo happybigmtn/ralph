@@ -1,24 +1,40 @@
-# Agent Instructions (Ralph Template)
+# AGENTS.md
 
-This repo uses the Ralph loop: specs -> plan -> build, with tests providing backpressure.
+Operational guide for building and running this project. Keep brief (~60 lines max).
 
-## Sources Of Truth
+## Build & Run
 
-- Requirements live in `specs/**/*.md` (excluding `specs/archive/`).
-- The current prioritized worklist lives in `IMPLEMENTATION_PLAN.md`.
-- The build agent should treat the next unchecked plan item as the only in-scope work for an iteration.
+<!-- Add project-specific build commands here -->
+<!-- Examples:
+npm install && npm run dev
+cargo build --release
+make build
+-->
 
-## Operating Rules
+## Validation
 
-- Do not invent requirements: every requirement must map to an explicit Acceptance Criteria ID in specs.
-- Do not create extra planning docs; keep planning inside `IMPLEMENTATION_PLAN.md`.
-- Keep changes tight: avoid drive-by refactors and unrelated formatting churn.
+Run these after implementing to get immediate feedback:
 
-## Backpressure
+- **Tests**: `[test command]`
+- **Typecheck**: `[typecheck command]`
+- **Lint**: `[lint command]`
 
-- All tests/backpressure listed under the selected plan item must exist and pass before considering the task complete.
-- If a required AC is missing/unclear, record it under "Missing/Unknown" in `IMPLEMENTATION_PLAN.md` instead of guessing.
+<!-- Examples:
+- Tests: `npm test` or `cargo test` or `pytest`
+- Typecheck: `npm run typecheck` or `mypy .`
+- Lint: `npm run lint` or `cargo clippy`
+-->
 
-## Commit/Push Policy
+## Operational Notes
 
-- Do not commit or push unless the user explicitly asks.
+<!-- Add learnings about how to run the project here -->
+<!-- Ralph updates this as it discovers patterns -->
+
+## Codebase Patterns
+
+<!-- Add discovered patterns and conventions here -->
+<!-- Ralph updates this as it learns the codebase -->
+
+---
+
+*This file is loaded at the start of every Ralph loop iteration. Keep it operational and concise. Status updates and progress belong in `IMPLEMENTATION_PLAN.md`, not here.*

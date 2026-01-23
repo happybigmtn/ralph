@@ -14,6 +14,7 @@ need() {
 need git
 need jq
 need claude
+need envsubst
 
 if [ "$missing" -ne 0 ]; then
   echo ""
@@ -21,4 +22,4 @@ if [ "$missing" -ne 0 ]; then
   exit 1
 fi
 
-echo "OK: git, jq, claude present"
+echo "OK: git, jq, claude, envsubst present"

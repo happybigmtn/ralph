@@ -1,52 +1,10 @@
-## Phase 2: Planning (Ralph)
+0a. Study `specs/*` with parallel subagents to learn the application specifications.
+0b. Study @IMPLEMENTATION_PLAN.md (if present) to understand the plan so far.
+0c. Study `src/lib/*` with parallel subagents to understand shared utilities & components.
+0d. For reference, the application source code is in `src/*`.
 
-**Goal**: Update **only** `IMPLEMENTATION_PLAN.md` so it is a faithful derivation of existing acceptance criteria in `specs/**/*.md` (excluding `specs/archive/`).
+1. Study @IMPLEMENTATION_PLAN.md (if present; it may be incorrect) and use parallel subagents to study existing source code in `src/*` and compare it against `specs/*`. Analyze findings, prioritize tasks, and create/update @IMPLEMENTATION_PLAN.md as a bullet point list sorted in priority of items yet to be implemented. Ultrathink. Consider searching for TODO, minimal implementations, placeholders, skipped/flaky tests, and inconsistent patterns. Study @IMPLEMENTATION_PLAN.md to determine starting point for research and keep it up to date with items considered complete/incomplete using subagents.
 
-### Scope Lock (Non-Negotiable)
-- You may edit: `IMPLEMENTATION_PLAN.md` only.
-- You may read: `specs/**/*.md` (excluding `specs/archive/`), and (optionally) repo files to confirm reality.
-- Do **not** create new specs, code, tests, or docs in this phase.
+IMPORTANT: Plan only. Do NOT implement anything. Do NOT assume functionality is missing; confirm with code search first. Treat `src/lib` as the project's standard library for shared utilities and components. Prefer consolidated, idiomatic implementations there over ad-hoc copies.
 
-### Hard Rules (Prevent Sloppy Plans)
-- **No invention**: never create new acceptance criteria IDs, new PQ criteria, or new requirements.
-- **No phantom references**: every AC you mention must exist verbatim in some `specs/**/*.md` file (excluding `specs/archive/`).
-- **No scope creep**: do not add new feature areas/milestones that are not already in `specs/**/*.md` (excluding `specs/archive/`) and/or already reflected by the current plan.
-- **No renumbering**: do not renumber or rewrite acceptance criteria in specs; only reference them.
-- **No control characters**: do not output non-printable characters (e.g., `\u001f`). Use ASCII punctuation or the en dash (`–`) for ranges.
-- **Ranges must be explicit**: represent ranges as `AC-x.y–AC-x.z` (en dash) or as a comma list. Never concatenate IDs.
-- If you cannot find an AC you think should exist, do not guess. Record it under a "Missing/Unknown" section in the plan.
-
-### Spec Discovery (Token Conservation)
-1. Read `specs/INDEX.md` first — it lists all active specs
-2. Only read specs relevant to current gaps
-3. Don't load archived specs unless specifically needed
-
-### Planning Process (Must Follow)
-1. Enumerate relevant Acceptance Criteria from `specs/**/*.md` (excluding `specs/archive/`).
-2. Compare those ACs to the current plan and identify gaps or incorrect mappings.
-3. For each gap, add/update exactly one plan task with:
-   - **Specs**: spec file path(s)
-   - **Tests/backpressure**: 1–3 checks derived directly from the cited ACs
-   - **Perceptual**: only if the cited specs explicitly define a perceptual AC (e.g., `AC-PQ.1`)
-4. Prefer smaller, testable tasks over giant milestones.
-
-### Task Format (Required)
-Use this format for each task:
-
-```markdown
-- [ ] Task description (clear, actionable)
-  - Specs: `specs/<file>.md` AC-X.Y, AC-A.B
-  - Tests/backpressure:
-    - Programmatic: ...
-    - Programmatic: ...
-  - Perceptual: AC-PQ.1 | None
-```
-
-### Output Requirement
-- Produce a unified diff patch that changes `IMPLEMENTATION_PLAN.md`.
-- Then print a short checklist:
-  - Every referenced AC exists in specs (yes/no)
-  - No new milestones introduced (yes/no)
-  - No phantom AC-PQ.* introduced (yes/no)
-  - No control characters introduced (yes/no)
-  - Only `IMPLEMENTATION_PLAN.md` modified (yes/no)
+ULTIMATE GOAL: We want to achieve [project-specific goal]. Consider missing elements and plan accordingly. If an element is missing, search first to confirm it doesn't exist, then if needed author the specification at specs/FILENAME.md. If you create a new element then document the plan to implement it in @IMPLEMENTATION_PLAN.md using a subagent.

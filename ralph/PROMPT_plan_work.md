@@ -1,41 +1,10 @@
-## Phase 2: Scoped Planning (Work Branch)
+0a. Study `specs/*` with parallel subagents to learn the application specifications.
+0b. Study @IMPLEMENTATION_PLAN.md (if present) to understand the plan so far.
+0c. Study `src/lib/*` with parallel subagents to understand shared utilities & components.
+0d. For reference, the application source code is in `src/*`.
 
-**Goal**: Update **only** `IMPLEMENTATION_PLAN.md` to include ONLY tasks relevant to the provided work scope, and ensure every task is grounded in existing `specs/**/*.md` acceptance criteria (excluding `specs/archive/`).
+1. You are creating a SCOPED implementation plan for work: "${WORK_SCOPE}". Study @IMPLEMENTATION_PLAN.md (if present; it may be incorrect) and use parallel subagents to study existing source code in `src/*` and compare it against `specs/*`. Analyze findings, prioritize tasks, and create/update @IMPLEMENTATION_PLAN.md as a bullet point list sorted in priority of items yet to be implemented. Ultrathink. Consider searching for TODO, minimal implementations, placeholders, skipped/flaky tests, and inconsistent patterns. Study @IMPLEMENTATION_PLAN.md to determine starting point for research and keep it up to date with items considered complete/incomplete using subagents.
 
-### Scope Lock (Non-Negotiable)
-- You may edit: `IMPLEMENTATION_PLAN.md` only.
-- You may read: `specs/**/*.md` (excluding `specs/archive/`), and any repo files needed to confirm reality.
-- Do **not** create new specs, code, tests, or docs in this phase.
+IMPORTANT: This is SCOPED PLANNING for "${WORK_SCOPE}" only. Create a plan containing ONLY tasks directly related to this work scope. Be conservative - if uncertain whether a task belongs to this work, exclude it. The plan can be regenerated if too narrow. Plan only. Do NOT implement anything. Do NOT assume functionality is missing; confirm with code search first. Treat `src/lib` as the project's standard library for shared utilities and components. Prefer consolidated, idiomatic implementations there over ad-hoc copies.
 
-### Hard Rules (Prevent Sloppy Scoped Plans)
-- **Scope discipline**: include ONLY tasks that directly serve the work scope header provided by the script.
-- **No invention**: never create new acceptance criteria IDs, new PQ criteria, or new requirements.
-- **No phantom references**: every AC you mention must exist verbatim in some `specs/**/*.md` file (excluding `specs/archive/`).
-- **No renumbering**: don’t renumber or rewrite ACs from specs.
-- **No spec creation**: if a needed spec/AC is missing, record it as a blocker in `IMPLEMENTATION_PLAN.md` under "Missing/Unknown" instead of creating files.
-
-### Scoped Planning Process (Must Follow)
-1. Identify which existing `specs/**/*.md` (excluding `specs/archive/`) files and ACs apply to the work scope.
-2. Compare those ACs to the current `IMPLEMENTATION_PLAN.md` and find gaps *within scope*.
-3. Add/update tasks for the scope only, each with:
-   - `Specs: specs/<file>.md` AC-X.Y
-   - 1–3 concrete tests/backpressure items derived directly from those ACs
-   - Perceptual: only if the specs explicitly define it (e.g., `AC-PQ.1`)
-
-### Task Format (Required)
-
-```markdown
-- [ ] Task description (clear, actionable)
-  - Specs: `specs/<file>.md` AC-X.Y, AC-A.B
-  - Tests/backpressure:
-    - Programmatic: ...
-    - Programmatic: ...
-  - Perceptual: AC-PQ.1 | None
-```
-
-### Output Requirement
-- Produce a unified diff patch that changes `IMPLEMENTATION_PLAN.md`.
-- Then print a short checklist:
-  - All tasks are strictly within provided work scope (yes/no)
-  - Every referenced AC exists in specs (yes/no)
-  - Only `IMPLEMENTATION_PLAN.md` modified (yes/no)
+ULTIMATE GOAL: We want to achieve the scoped work "${WORK_SCOPE}". Consider missing elements related to this work and plan accordingly. If an element is missing, search first to confirm it doesn't exist, then if needed author the specification at specs/FILENAME.md. If you create a new element then document the plan to implement it in @IMPLEMENTATION_PLAN.md using a subagent.
