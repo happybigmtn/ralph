@@ -53,15 +53,14 @@ specs/*.md              # Acceptance criteria
 ## Loop Commands
 
 ```bash
-./loop.sh              # Build, unlimited iterations
-./loop.sh 20           # Build, max 20 iterations
-./loop.sh plan         # Full planning
-./loop.sh plan-work "scope"  # Scoped planning for work branch
+./loopclaude.sh              # Build until no tasks remain
+./loopclaude.sh 20           # Build, max 20 iterations
+./loopclaude.sh plan         # Full planning
+./loopclaude.sh plan-work "scope"  # Scoped planning for work branch
 ```
+
+The loop counts `- [ ]` checkboxes in `IMPLEMENTATION_PLAN.md` and stops when zero remain. Each iteration logs to `logs/`.
 
 ## Environment
 
-- `RALPH_AUTOCOMMIT=1` — Enable auto-commit after each iteration
-
----
-*Full methodology: `docs/ralph-methodology.md`*
+- `RALPH_AUTOCOMMIT=1` — Auto-commit after each iteration
