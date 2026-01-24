@@ -53,10 +53,16 @@ specs/*.md              # Acceptance criteria
 ## Loop Commands
 
 ```bash
+# Claude (default)
 ./loopclaude.sh              # Build until no tasks remain
 ./loopclaude.sh 20           # Build, max 20 iterations
 ./loopclaude.sh plan         # Full planning
 ./loopclaude.sh plan-work "scope"  # Scoped planning for work branch
+
+# Alternative models
+./loopgemini.sh              # Gemini 2.5 Pro
+./loopcodex.sh               # GPT-5.2 via Codex
+./loopopencode.sh            # Claude Opus 4.5 via GitHub Copilot
 ```
 
 The loop counts `- [ ]` checkboxes in `IMPLEMENTATION_PLAN.md` and stops when zero remain. Each iteration logs to `logs/`.
