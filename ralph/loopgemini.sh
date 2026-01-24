@@ -2,24 +2,28 @@
 # Ralph loop runner using Gemini CLI
 set -euo pipefail
 
-# Configuration
-PLAN_FILE="IMPLEMENTATION_PLAN.md"
-LOG_DIR="logs"
+# Resolve script directory and repo root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Configuration - paths relative to SCRIPT_DIR for prompts, REPO_ROOT for execution
+PLAN_FILE="$SCRIPT_DIR/IMPLEMENTATION_PLAN.md"
+LOG_DIR="$SCRIPT_DIR/logs"
 MODEL="gemini-3-pro-preview"
 
 # Determine prompt file based on mode
 MODE="build"
 WORK_SCOPE=""
-PROMPT_FILE="PROMPT_build.md"
+PROMPT_FILE="$SCRIPT_DIR/PROMPT_build.md"
 MAX_ITERATIONS=0  # 0 = unlimited
 
 if [[ "${1:-}" == "plan" ]]; then
     MODE="plan"
-    PROMPT_FILE="PROMPT_plan.md"
+    PROMPT_FILE="$SCRIPT_DIR/PROMPT_plan.md"
     MAX_ITERATIONS=${2:-0}
 elif [[ "${1:-}" == "plan-work" ]]; then
     MODE="plan-work"
-    PROMPT_FILE="PROMPT_plan_work.md"
+    PROMPT_FILE="$SCRIPT_DIR/PROMPT_plan_work.md"
     WORK_SCOPE="${2:-}"
     MAX_ITERATIONS=${3:-0}
     if [[ -z "$WORK_SCOPE" ]]; then
@@ -63,6 +67,7 @@ echo "  Ralph Loop (Gemini)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  Mode:   $MODE"
 echo "  Model:  $MODEL"
+echo "  Root:   $REPO_ROOT"
 echo "  Prompt: $PROMPT_FILE"
 echo "  Plan:   $PLAN_FILE"
 [[ "$MAX_ITERATIONS" -gt 0 ]] && echo "  Max:    $MAX_ITERATIONS iterations"
@@ -101,13 +106,15 @@ while true; do
         prompt_content=$(cat "$PROMPT_FILE")
     fi
 
-    # Run Gemini CLI
-    echo "Running Gemini CLI..."
+    # Run Gemini CLI from repo root
+    echo "Running Gemini CLI from $REPO_ROOT..."
+    pushd "$REPO_ROOT" > /dev/null
     if gemini --yolo -m "$MODEL" "$prompt_content" 2>&1 | tee "$log_file"; then
         echo "Gemini completed successfully"
     else
         echo "Gemini exited with error, checking if progress was made..."
     fi
+    popd > /dev/null
 
     # Check progress
     new_remaining=$(count_remaining)
@@ -119,12 +126,12 @@ while true; do
         echo "Progress: $remaining -> $new_remaining tasks"
     fi
 
-    # Auto-commit if enabled
+    # Auto-commit if enabled (from repo root)
     if [[ "${RALPH_AUTOCOMMIT:-0}" == "1" ]] && [[ "$MODE" == "build" ]]; then
-        if [[ -n "$(git status --porcelain)" ]]; then
+        if [[ -n "$(git -C "$REPO_ROOT" status --porcelain)" ]]; then
             msg="ralph: iteration $iteration (gemini)"
             echo "Committing: $msg"
-            git add -A && git commit -m "$msg" || echo "Commit failed"
+            git -C "$REPO_ROOT" add -A && git -C "$REPO_ROOT" commit -m "$msg" || echo "Commit failed"
         fi
     fi
 
