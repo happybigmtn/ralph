@@ -5,7 +5,7 @@ set -euo pipefail
 # Configuration
 PLAN_FILE="IMPLEMENTATION_PLAN.md"
 LOG_DIR="logs"
-MODEL="gemini-2.5-pro"
+MODEL="gemini-3-pro-preview"
 
 # Determine prompt file based on mode
 MODE="build"
